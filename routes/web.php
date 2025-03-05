@@ -3,16 +3,18 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LinkController;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+//Route::get('/', function () {
+//
+//    return Inertia::render('Welcome', [
+//        'canLogin' => Route::has('login'),
+//        'canRegister' => Route::has('register'),
+//        'laravelVersion' => Application::VERSION,
+//        'phpVersion' => PHP_VERSION,
+//    ]);
+//});
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -25,3 +27,12 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/', [LinkController::class, 'index'])->name('links.index');
+    Route::post('/shorten', [LinkController::class, 'store'])->name('links.store');
+
+    Route::delete('/{link}', [LinkController::class, 'destroy'])->name('links.destroy');
+});
+
+Route::get('/link/{code}', [LinkController::class, 'redirect'])->name('links.redirect');
