@@ -32,7 +32,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', [LinkController::class, 'index'])->name('links.index');
     Route::post('/shorten', [LinkController::class, 'store'])->name('links.store');
 
-    Route::delete('/{link}', [LinkController::class, 'destroy'])->name('links.destroy');
+    Route::delete('/delete/{link}', [LinkController::class, 'destroy'])->name('links.destroy');
+    Route::get('/links/clicks', [LinkController::class, 'getClicks'])->name('links.getClicks');
 });
 
 Route::get('/link/{code}', [LinkController::class, 'redirect'])->name('links.redirect');

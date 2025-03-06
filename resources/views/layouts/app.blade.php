@@ -30,17 +30,12 @@
 
                 <div class="hidden sm:flex sm:items-center sm:ml-6">
                     @auth
-                        <a href="{{ route('dashboard') }}" class="text-gray-600 hover:text-gray-900">Dashboard</a>
-                        <a href="{{ route('links.index') }}" class="ml-4 text-gray-600 hover:text-gray-900">Мои ссылки</a>
                         <form method="POST" action="{{ route('logout') }}" class="ml-4">
                             @csrf
                             <button type="submit" class="text-gray-600 hover:text-gray-900">
                                 Выйти
                             </button>
                         </form>
-                    @else
-                        <a href="{{ route('login') }}" class="text-gray-600 hover:text-gray-900">Войти</a>
-                        <a href="{{ route('register') }}" class="ml-4 text-gray-600 hover:text-gray-900">Регистрация</a>
                     @endauth
                 </div>
             </div>
@@ -55,9 +50,10 @@
     <!-- Футер -->
     <footer class="bg-white shadow mt-4">
         <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-gray-500">&copy; {{ date('Y') }} {{ config('app.name') }}. Все права защищены.</p>
+            <p class="text-gray-500">&copy; {{ date('Y') }} {{ config('app.name') }}. Все права не защищены.</p>
         </div>
     </footer>
 </div>
+@yield('custom-script')
 </body>
 </html>
